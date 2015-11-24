@@ -289,4 +289,10 @@
     <color name="navy">#000080</color><!--海军色 -->
 
     <color name="black">#000000</color><!--黑色 -->
+    
+    <color name="primary">#FF03A9F4</color>
+
+    <color name="primary_dark">#FF0288F4</color>
+
+    <color name="status_bar_color">@color/primary_dark</color>
 </resources>
