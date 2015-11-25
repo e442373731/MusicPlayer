@@ -4,11 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--<include layout="@layout/playing_layout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"/>-->
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/view_toolbar"
         android:titleTextColor="#ffffff"
