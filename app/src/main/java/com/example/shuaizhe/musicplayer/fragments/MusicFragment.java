@@ -1,6 +1,7 @@
 package com.example.shuaizhe.musicplayer.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.example.shuaizhe.musicplayer.R;
 import com.example.shuaizhe.musicplayer.adapter.MusicAdapter;
 import com.example.shuaizhe.musicplayer.bean.MusicInfo;
+import com.example.shuaizhe.musicplayer.service.PlayingService;
 import com.example.shuaizhe.musicplayer.utils.MusicLoder;
 
 import java.util.ArrayList;
@@ -65,7 +67,7 @@ public class MusicFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d(TAG,"onActivityCreated");
+        Log.d(TAG, "onActivityCreated");
     }
 
     @Override
@@ -96,10 +98,12 @@ public class MusicFragment extends Fragment
             if(mIsplaying){
                 mPlayingButton.setImageResource(R.drawable.stop_selector);
                 //TODO:stop play music
+                stopPlayMusic();
                 mIsplaying = false;
             }else {
                 mPlayingButton.setImageResource(R.drawable.playing_selector);
                 //TODO:continue music
+                playMusic();
                 mIsplaying = true;
             }
         }else {
@@ -109,6 +113,7 @@ public class MusicFragment extends Fragment
             mMusicAdapter.setmCurrentPosition(position);
             mBlowMusicName.setText(infos.get(position).getMusicName());
             mBlowArtistName.setText(infos.get(position).getArtist());
+            playMusic();
         }
     }
 
@@ -147,6 +152,22 @@ public class MusicFragment extends Fragment
         switch (v.getId()){
             //TODO:set on click listener
         }
+    }
+
+    private void playMusic(){
+        Intent intent = new Intent(getActivity(), PlayingService.class);
+        intent.putExtra("playing",true);
+        intent.putExtra("Url",infos.get(mCurrentPosition).getUrl());
+        getActivity().startService(intent);
+    }
+
+    /**
+     * TODO
+     */
+    private void stopPlayMusic(){
+        Intent intent = new Intent(getActivity(),PlayingService.class);
+        intent.putExtra("playing",false);
+        getActivity().startService(intent);
     }
 
     private class Worker extends AsyncTask<Void, Void, Void> {

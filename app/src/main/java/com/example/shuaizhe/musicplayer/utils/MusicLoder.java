@@ -41,7 +41,7 @@ public class MusicLoder {
             int urlCol = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
             do {
                 int isMusic = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.IS_MUSIC));
-                if(isMusic == 0){
+                if(isMusic != 0){
                     String musicName = cursor.getString(displayNameCol);
                     String artist = cursor.getString(artistCol);
                     String url = cursor.getString(urlCol);

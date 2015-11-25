@@ -26,6 +26,8 @@
             android:theme="@style/AppTheme"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
+
+        <service android:name=".service.PlayingService"/>
     </application>
 
 </manifest>
