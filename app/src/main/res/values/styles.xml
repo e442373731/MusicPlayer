@@ -8,7 +8,7 @@
 
     <style name="AppTheme" parent="@style/BaseAppTheme"></style>
 
-    <!--another style-->
+    <!--another style No Action use ToolBar-->
 
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/ActionBar</item>
