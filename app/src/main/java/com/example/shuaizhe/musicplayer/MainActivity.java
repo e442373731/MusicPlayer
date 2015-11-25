@@ -41,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate()");
         setContentView(R.layout.activity_main);
-        mToolbar = (Toolbar)findViewById(R.id.view_toolbar);
-        setSupportActionBar(mToolbar);
+        initToolbar();
         mDisplayMetrics = getResources().getDisplayMetrics();
         ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
         mTabs = (PagerSlidingTabStrip) findViewById(R.id.view_tabs);
@@ -118,6 +117,14 @@ public class MainActivity extends AppCompatActivity {
         mTabs.setIndicatorColor(Color.parseColor("#45c01a"));
         mTabs.setSelectedTextColor(Color.parseColor("#45c01a"));
         mTabs.setTabBackground(0);
+    }
+
+    private void initToolbar(){
+        mToolbar = (Toolbar)findViewById(R.id.view_toolbar);
+        //mToolbar.setLogo(R.drawable.music_player);
+        mToolbar.setSubtitle("郑帅");
+        mToolbar.setSubtitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
     }
 
     @Override
