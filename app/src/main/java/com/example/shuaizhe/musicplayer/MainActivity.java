@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -25,19 +27,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
     private MusicFragment mMusicFragment;
     private SingerFragment mSingerFragment;
     private DisplayMetrics mDisplayMetrics;
     private PagerSlidingTabStrip mTabs;
+    private Toolbar mToolbar;
 
     private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"onCreate()");
+        Log.d(TAG, "onCreate()");
         setContentView(R.layout.activity_main);
+        mToolbar = (Toolbar)findViewById(R.id.view_toolbar);
+        setSupportActionBar(mToolbar);
         mDisplayMetrics = getResources().getDisplayMetrics();
         ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
         mTabs = (PagerSlidingTabStrip) findViewById(R.id.view_tabs);
