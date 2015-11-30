@@ -16,6 +16,7 @@ import com.example.shuaizhe.musicplayer.fragments.MusicFragment;
 import com.example.shuaizhe.musicplayer.utils.UtilApplication;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -29,21 +30,14 @@ public class PlayingService extends Service {
     private StatusReceiver mReceiver;
     private int mSize;
     private List<MusicInfo> mInfos;
+    private int mCurrentTime;
 
     public static final String UPDATE_ACTION = "com.shuaizheng.update.status.action";
     public static final String NEXT_MUSIC_ACTION = "com.shuaizheng.next.music.action";
     public static final String MUSIC_DURATION = "com.shuaizheng.music.duration";
+    public static final String CURRENT_DURATION = "com.shuaizheng.current.duration";
 
-    private Handler durationhandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case 1:
-                    //TODO 更新UI
-            }
-        }
-    };
+    private Handler mDurationhandler = new Myhandler(PlayingService.this);
 
     @Nullable
     @Override
@@ -128,6 +122,7 @@ public class PlayingService extends Service {
             mPlayer = null;
         }
         unregisterReceiver(mReceiver);
+        mDurationhandler.removeCallbacksAndMessages(null);
         stopSelf();
     }
 
@@ -138,7 +133,7 @@ public class PlayingService extends Service {
             mPlayer.setDataSource(mUrl);
             mPlayer.prepare();
             mPlayer.setOnPreparedListener(new MyPreparedListener(position));
-            durationhandler.sendEmptyMessage(1);
+            mDurationhandler.sendEmptyMessage(1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -192,6 +187,32 @@ public class PlayingService extends Service {
                 mp.seekTo(currentTime);
             }
             //TODO 通过广播更新UI中的歌曲时间 action为DURATION
+        }
+    }
+
+    /**
+     * 本地Handler
+     */
+    private static class Myhandler extends Handler{
+        private WeakReference<PlayingService> service;
+
+        public Myhandler(PlayingService playingService){
+            service = new  WeakReference<>(playingService);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    if(service.get().mPlayer != null){
+                        service.get().mCurrentTime = service.get().mPlayer.getCurrentPosition();
+                        Intent sendIntent = new Intent(CURRENT_DURATION);
+                        sendIntent.putExtra("currentTime",service.get().mCurrentTime);
+                        service.get().sendBroadcast(sendIntent);
+                        sendEmptyMessageAtTime(1,1000);
+                    }
+            }
         }
     }
 
