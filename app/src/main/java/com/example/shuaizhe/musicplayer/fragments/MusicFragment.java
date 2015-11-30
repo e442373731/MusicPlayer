@@ -1,6 +1,9 @@
 package com.example.shuaizhe.musicplayer.fragments;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ import com.example.shuaizhe.musicplayer.adapter.MusicAdapter;
 import com.example.shuaizhe.musicplayer.bean.MusicInfo;
 import com.example.shuaizhe.musicplayer.service.PlayingService;
 import com.example.shuaizhe.musicplayer.utils.MusicLoder;
+import com.example.shuaizhe.musicplayer.utils.UtilApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +52,15 @@ public class MusicFragment extends Fragment
     private boolean mIsplaying = false;
     private boolean mIsStoping = true;
 
+    private UtilApplication mApplication;
+
+    public static final String STATUS_ACTION = "com.shuaizheng.status.action";
+
     @Override
     public void onCreate(Bundle save) {
         Log.d(TAG, "onCreate");
         super.onCreate(save);
+        mApplication = (UtilApplication)getActivity().getApplication();
         Worker worker = new Worker();
         worker.execute();
     }
@@ -158,6 +167,8 @@ public class MusicFragment extends Fragment
         Intent intent = new Intent(getActivity(), PlayingService.class);
         intent.putExtra("playing",true);
         intent.putExtra("Url",infos.get(mCurrentPosition).getUrl());
+        intent.putExtra("position",mCurrentPosition);
+        intent.putExtra("musicSize",infos.size());
         getActivity().startService(intent);
     }
 
@@ -188,9 +199,21 @@ public class MusicFragment extends Fragment
         protected void onPostExecute(Void aVoid) {
             mProgressBar.setVisibility(View.GONE);
             showEmpty();
+            mApplication.setMusicInfos(infos);
             mMusicAdapter = new MusicAdapter(infos, getActivity());
             mListView.setAdapter(mMusicAdapter);
             super.onPostExecute(aVoid);
+        }
+    }
+
+    /**
+     * 监听Service的接收器
+     */
+    private class HomeReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
         }
     }
 

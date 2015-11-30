@@ -1,5 +1,6 @@
 package com.example.shuaizhe.musicplayer;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.example.shuaizhe.musicplayer.adapter.MusicAdapter;
 import com.example.shuaizhe.musicplayer.bean.MusicInfo;
 import com.example.shuaizhe.musicplayer.fragments.MusicFragment;
 import com.example.shuaizhe.musicplayer.fragments.SingerFragment;
+import com.example.shuaizhe.musicplayer.service.PlayingService;
 import com.example.shuaizhe.musicplayer.utils.MusicLoder;
 import com.example.shuaizhe.musicplayer.views.PagerSlidingTabStrip;
 
@@ -131,5 +133,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         Log.d(TAG,"onDestroy");
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(MainActivity.this, PlayingService.class);
+        stopService(intent);
     }
 }

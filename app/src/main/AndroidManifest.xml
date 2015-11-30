@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
+        android:name=".utils.UtilApplication"
         android:allowBackup="true"
         android:icon="@drawable/music_player"
         android:label="@string/app_name"
