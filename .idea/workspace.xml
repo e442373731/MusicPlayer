@@ -45,7 +45,7 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bufferdemo/src/main/java/com/example/shuaizheng/bufferdemo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44247788">
+            <state vertical-scroll-proportion="0.2920354">
               <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
               <folding>
                 <element signature="e#803#1169#0" expanded="true" />
@@ -2675,8 +2675,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
           <folding>
-            <element signature="e#404#422#0" expanded="true" />
-            <element signature="e#544#562#0" expanded="true" />
+            <element signature="e#404#422#0" expanded="false" />
+            <element signature="e#544#562#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2686,8 +2686,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="201" column="44" selection-start-line="201" selection-start-column="44" selection-end-line="201" selection-end-column="44" />
           <folding>
-            <element signature="e#3094#3340#0" expanded="true" />
-            <element signature="e#3339#3340#0" expanded="true" />
+            <element signature="e#3094#3340#0" expanded="false" />
+            <element signature="e#3339#3340#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2697,13 +2697,13 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="124" column="56" selection-start-line="124" selection-start-column="56" selection-end-line="124" selection-end-column="56" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1476#1477#0" expanded="true" />
-            <element signature="e#1503#1504#0" expanded="true" />
-            <element signature="e#1915#2928#0" expanded="true" />
-            <element signature="e#2927#2928#0" expanded="true" />
-            <element signature="e#5528#5529#0" expanded="true" />
-            <element signature="e#5574#5575#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1476#1477#0" expanded="false" />
+            <element signature="e#1503#1504#0" expanded="false" />
+            <element signature="e#1915#2928#0" expanded="false" />
+            <element signature="e#2927#2928#0" expanded="false" />
+            <element signature="e#5528#5529#0" expanded="false" />
+            <element signature="e#5574#5575#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2738,9 +2738,9 @@
         <state vertical-scroll-proportion="0.3761062">
           <caret line="19" column="27" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#434#435#0" expanded="true" />
-            <element signature="e#468#469#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#434#435#0" expanded="false" />
+            <element signature="e#468#469#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2774,7 +2774,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bufferdemo/src/main/java/com/example/shuaizheng/bufferdemo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44247788">
+        <state vertical-scroll-proportion="0.2920354">
           <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
           <folding>
             <element signature="e#803#1169#0" expanded="true" />
