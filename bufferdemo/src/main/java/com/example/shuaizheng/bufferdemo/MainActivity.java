@@ -14,8 +14,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-    @Bind(R.id.fab) private FloatingActionButton fab;
-    @Bind(R.id.toolbar) private Toolbar toolbar;
+    @Bind(R.id.fab) FloatingActionButton fab;
+    @Bind(R.id.toolbar) Toolbar toolbar;
     @OnClick(R.id.fab) void submit(View view){
         Snackbar.make(view,"One",Snackbar.LENGTH_SHORT).setAction("Action",null).show();
     }
