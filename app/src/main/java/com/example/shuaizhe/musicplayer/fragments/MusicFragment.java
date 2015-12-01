@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,7 +33,7 @@ import java.util.List;
  * Created by shuaizhe on 10/19/2015.
  */
 public class MusicFragment extends Fragment
-        implements View.OnClickListener{
+        implements View.OnClickListener {
     private MusicLoder mMusicLoder;
     private MusicAdapter mMusicAdapter;
     private List<MusicInfo> infos = new ArrayList<>();
@@ -53,16 +54,23 @@ public class MusicFragment extends Fragment
     private boolean mIsStoping = true;
 
     private UtilApplication mApplication;
+    private HomeReceiver mReceiver;
 
-    public static final String STATUS_ACTION = "com.shuaizheng.status.action";
+    public static final String UPDATE_ACTION = "com.shuaizheng.update.status.action";
+    public static final String NEXT_MUSIC_ACTION = "com.shuaizheng.next.music.action";
+    public static final String MUSIC_DURATION = "com.shuaizheng.music.duration";
+    public static final String CURRENT_DURATION = "com.shuaizheng.current.duration";
 
     @Override
     public void onCreate(Bundle save) {
         Log.d(TAG, "onCreate");
         super.onCreate(save);
-        mApplication = (UtilApplication)getActivity().getApplication();
+        mApplication = (UtilApplication) getActivity().getApplication();
         Worker worker = new Worker();
         worker.execute();
+        mReceiver = new HomeReceiver();
+        IntentFilter filter = new IntentFilter(NEXT_MUSIC_ACTION);
+        getActivity().registerReceiver(mReceiver, filter);
     }
 
     //at first
@@ -102,20 +110,20 @@ public class MusicFragment extends Fragment
         return mView;
     }
 
-    private void changeOrPauseMusic(int position){
-        if(position == mCurrentPosition){
-            if(mIsplaying){
+    private void changeOrPauseMusic(int position) {
+        if (position == mCurrentPosition) {
+            if (mIsplaying) {
                 mPlayingButton.setImageResource(R.drawable.stop_selector);
                 //TODO:stop play music
                 stopPlayMusic();
                 mIsplaying = false;
-            }else {
+            } else {
                 mPlayingButton.setImageResource(R.drawable.playing_selector);
                 //TODO:continue music
                 playMusic();
                 mIsplaying = true;
             }
-        }else {
+        } else {
             mIsplaying = true;
             mCurrentPosition = position;
             mPlayingButton.setImageResource(R.drawable.playing_selector);
@@ -126,7 +134,16 @@ public class MusicFragment extends Fragment
         }
     }
 
-    private void initViews(){
+    private void changeUI(int position){
+        mIsplaying = true;
+        mCurrentPosition = position;
+        mPlayingButton.setImageResource(R.drawable.playing_selector);
+        mMusicAdapter.setmCurrentPosition(position);
+        mBlowMusicName.setText(infos.get(position).getMusicName());
+        mBlowArtistName.setText(infos.get(position).getArtist());
+    }
+
+    private void initViews() {
         mBlowArtistName = (TextView) getActivity().findViewById(R.id.blow_playing_artist_name);
         mBlowMusicName = (TextView) getActivity().findViewById(R.id.blow_playing_music_name);
         mPreButton = (ImageView) getActivity().findViewById(R.id.pre_button);
@@ -147,6 +164,7 @@ public class MusicFragment extends Fragment
     public void onDestroy() {
         Log.d(TAG, "onDestroy");
         super.onDestroy();
+        getActivity().unregisterReceiver(mReceiver);
     }
 
     @Override
@@ -158,26 +176,26 @@ public class MusicFragment extends Fragment
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             //TODO:set on click listener
         }
     }
 
-    private void playMusic(){
+    private void playMusic() {
         Intent intent = new Intent(getActivity(), PlayingService.class);
-        intent.putExtra("playing",true);
-        intent.putExtra("Url",infos.get(mCurrentPosition).getUrl());
-        intent.putExtra("position",mCurrentPosition);
-        intent.putExtra("musicSize",infos.size());
+        intent.putExtra("playing", true);
+        intent.putExtra("Url", infos.get(mCurrentPosition).getUrl());
+        intent.putExtra("position", mCurrentPosition);
+        intent.putExtra("musicSize", infos.size());
         getActivity().startService(intent);
     }
 
     /**
      * TODO
      */
-    private void stopPlayMusic(){
-        Intent intent = new Intent(getActivity(),PlayingService.class);
-        intent.putExtra("playing",false);
+    private void stopPlayMusic() {
+        Intent intent = new Intent(getActivity(), PlayingService.class);
+        intent.putExtra("playing", false);
         getActivity().startService(intent);
     }
 
@@ -213,7 +231,11 @@ public class MusicFragment extends Fragment
 
         @Override
         public void onReceive(Context context, Intent intent) {
-
+            String action = intent.getAction();
+            if(NEXT_MUSIC_ACTION.equals(action)){
+                int current = intent.getIntExtra("CurrentPosition",0);
+                changeUI(current);
+            }
         }
     }
 

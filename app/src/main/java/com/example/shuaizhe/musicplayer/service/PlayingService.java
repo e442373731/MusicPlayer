@@ -12,7 +12,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 
 import com.example.shuaizhe.musicplayer.bean.MusicInfo;
-import com.example.shuaizhe.musicplayer.fragments.MusicFragment;
 import com.example.shuaizhe.musicplayer.utils.UtilApplication;
 
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class PlayingService extends Service {
         super.onCreate();
         mReceiver = new StatusReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction(MusicFragment.STATUS_ACTION);
+        filter.addAction(UPDATE_ACTION);
         registerReceiver(mReceiver, filter);
         mInfos = ((UtilApplication)getApplication()).getMusicInfos();
 
@@ -72,8 +71,8 @@ public class PlayingService extends Service {
                         Intent sendIntent = new Intent(NEXT_MUSIC_ACTION);
                         sendIntent.putExtra("CurrentPosition",mCurrent);
                         mUrl = mInfos.get(mCurrent).getUrl();
-                        play(0);
                         sendBroadcast(sendIntent);
+                        play(0);
                         break;
                     case 3:
                         //随机播放
